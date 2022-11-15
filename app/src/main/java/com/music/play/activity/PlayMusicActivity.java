@@ -120,14 +120,13 @@ public class PlayMusicActivity extends BaseActivity<ActivityPlayMusicBinding> im
         } else {
             mBinding.ivMusicPlay.setSelected(false);
         }
-        mBinding.toolbar.setTitle(musicInfo.getMusic_title());
-        mBinding.tvMusicTitle.setText(musicInfo.getMusic_title());
-        mBinding.tvMusicSongType.setText(musicInfo.getMusic_type());
+        mBinding.toolbar.setTitle(music.getMusic_title());
+        mBinding.tvMusicTitle.setText(music.getMusic_title());
+        mBinding.tvMusicSongType.setText(music.getMusic_type());
     }
 
     @Override
     public void onChange(MusicInfo music) {
-        Log.d(TAG, "onChange: ");
         onChangeImpl(music);
     }
 
