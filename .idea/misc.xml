@@ -18,6 +18,8 @@
         <entry key="..\:/AndroidProject/Android-music-play/app/src/main/res/layout/home_item_list.xml" value="0.2988679352838745" />
         <entry key="..\:/AndroidProject/Android-music-play/app/src/main/res/layout/type_item_list.xml" value="0.2264151024877837" />
         <entry key="..\:/AndroidProject/Android-music-play/app/src/main/res/layout/user_list_item.xml" value="0.2988679352838745" />
+        <entry key="app/src/main/res/drawable/play_btn_pause_selector.xml" value="0.1805" />
+        <entry key="app/src/main/res/drawable/play_btn_play_pause_selector.xml" value="0.1805" />
         <entry key="app/src/main/res/drawable/ripple.xml" value="0.1705" />
         <entry key="app/src/main/res/drawable/seekbar_progress.xml" value="0.1705" />
         <entry key="app/src/main/res/layout/activity_admin_login.xml" value="0.14583333333333334" />

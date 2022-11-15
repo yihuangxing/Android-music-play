@@ -5,9 +5,13 @@ import android.os.Build;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
 import android.widget.SeekBar;
 
 import com.gyf.immersionbar.ImmersionBar;
+import com.music.play.R;
 import com.music.play.base.BaseActivity;
 import com.music.play.databinding.ActivityPlayMusicBinding;
 import com.music.play.entity.MusicInfo;
@@ -123,6 +127,8 @@ public class PlayMusicActivity extends BaseActivity<ActivityPlayMusicBinding> im
         mBinding.toolbar.setTitle(music.getMusic_title());
         mBinding.tvMusicTitle.setText(music.getMusic_title());
         mBinding.tvMusicSongType.setText(music.getMusic_type());
+
+        startAnim();
     }
 
     @Override
@@ -137,12 +143,14 @@ public class PlayMusicActivity extends BaseActivity<ActivityPlayMusicBinding> im
         mBinding.sbProgress.setMax((int) duration);
         mBinding.tvTotalTime.setText(formatTime("mm:ss", duration));
         mBinding.ivMusicPlay.setSelected(true);
+        startAnim();
     }
 
     @Override
     public void onPlayerPause() {
         Log.d(TAG, "onPlayerPause: ");
         mBinding.ivMusicPlay.setSelected(false);
+        stopAnim();
     }
 
     @Override
@@ -157,5 +165,20 @@ public class PlayMusicActivity extends BaseActivity<ActivityPlayMusicBinding> im
         mBinding.sbProgress.setSecondaryProgress(mBinding.sbProgress.getMax() * 100 / percent);
     }
 
+
+    private Animation animation;
+
+    private void startAnim() {
+        animation = AnimationUtils.loadAnimation(this, R.anim.rotation_animation);
+        LinearInterpolator lin = new LinearInterpolator();//设置动画匀速运动
+        animation.setInterpolator(lin);
+        mBinding.imgCd.startAnimation(animation);
+    }
+
+    private void stopAnim() {
+       if (mBinding.imgCd.getAnimation()!=null){
+           mBinding.imgCd.clearAnimation();
+       }
+    }
 
 }
