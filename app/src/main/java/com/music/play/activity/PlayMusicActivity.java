@@ -11,10 +11,13 @@ import android.view.animation.LinearInterpolator;
 import android.widget.SeekBar;
 
 import com.gyf.immersionbar.ImmersionBar;
+import com.lzy.okgo.OkGo;
 import com.music.play.R;
+import com.music.play.api.ApiConstants;
 import com.music.play.base.BaseActivity;
 import com.music.play.databinding.ActivityPlayMusicBinding;
 import com.music.play.entity.MusicInfo;
+import com.music.play.http.HttpStringCallback;
 import com.music.play.service.AudioPlayer;
 import com.music.play.service.OnPlayerEventListener;
 
@@ -92,6 +95,9 @@ public class PlayMusicActivity extends BaseActivity<ActivityPlayMusicBinding> im
         AudioPlayer.get().addOnPlayEventListener(this);
         if (null != musicInfo) {
             AudioPlayer.get().addAndPlay(musicInfo);
+
+            //添加到浏览记录
+            addRecord(musicInfo);
         }
     }
 
@@ -176,9 +182,30 @@ public class PlayMusicActivity extends BaseActivity<ActivityPlayMusicBinding> im
     }
 
     private void stopAnim() {
-       if (mBinding.imgCd.getAnimation()!=null){
-           mBinding.imgCd.clearAnimation();
-       }
+        if (mBinding.imgCd.getAnimation() != null) {
+            mBinding.imgCd.clearAnimation();
+        }
+    }
+
+    private void addRecord(MusicInfo musicInfo) {
+        OkGo.<String>get(ApiConstants.ADD_RECORD_MUSIC_URL)
+                .params("username", ApiConstants.getUserInfo().getUsername())
+                .params("music_title", musicInfo.getMusic_title())
+                .params("music_url", musicInfo.getMusic_url())
+                .params("music_type", musicInfo.getMusic_type())
+                .execute(new HttpStringCallback(null) {
+                    @Override
+                    protected void onSuccess(String msg, String response) {
+
+                    }
+
+                    @Override
+                    protected void onError(String response) {
+
+                    }
+                });
+
+
     }
 
 }

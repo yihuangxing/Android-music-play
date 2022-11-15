@@ -56,5 +56,12 @@ public class ApiConstants {
     public final static String DEL_USER_URL = BASE_URL + "/user/delUser";
 
 
+    //查找浏览记录
+    public final static String RECORD_MUSIC_LIST_URL = BASE_URL + "/user/queryMusicRecordList";
+
+    //添加浏览记录
+    public final static String ADD_RECORD_MUSIC_URL = BASE_URL + "/user/addMusicRecord";
+
+
 
 }

@@ -9,13 +9,14 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import com.music.play.base.BaseActivity;
 import com.music.play.databinding.ActivityMainBinding;
 import com.music.play.fragment.HomeFragment;
+import com.music.play.fragment.RecordFragment;
 import com.music.play.fragment.TypeFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends BaseActivity<ActivityMainBinding> {
-    private String[] titles = {"推荐", "分类"};
+    private String[] titles = {"音乐推荐", "音乐分类", "浏览记录"};
     private List<Fragment> fragmentList = new ArrayList<>();
 
     @Override
@@ -33,6 +34,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         //造数据
         fragmentList.add(new HomeFragment());
         fragmentList.add(new TypeFragment());
+        fragmentList.add(new RecordFragment());
 
         //如果处理成懒加载的话，其实很简单，只要是这个方法setOffscreenPageLimit不去设置，就可以了。
 //        mBinding.viewPager.setOffscreenPageLimit(fragmentList.size());
