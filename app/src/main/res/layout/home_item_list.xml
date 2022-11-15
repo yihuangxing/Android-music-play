@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -10,11 +11,13 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp">
 
-        <androidx.appcompat.widget.AppCompatImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/icon"
-            android:layout_width="54dp"
-            android:layout_height="54dp"
-            android:src="@mipmap/app_icon_round" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/app_icon_round_1"
+            app:civ_border_color="#FF5722"
+            app:civ_border_width="1dp" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="wrap_content"
@@ -33,11 +36,12 @@
                 android:textSize="16sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/music_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:textSize="12sp"
-                android:text="热门音乐" />
+                android:text="热门音乐"
+                android:textSize="12sp" />
 
 
         </androidx.appcompat.widget.LinearLayoutCompat>

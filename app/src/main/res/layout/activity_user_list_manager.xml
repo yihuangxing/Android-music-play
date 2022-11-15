@@ -4,22 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/teal_200"
     android:orientation="vertical"
-    tools:context=".fragment.TypeFragment">
+    tools:context=".activity.UserListManagerActivity">
 
-
-    <androidx.appcompat.widget.AppCompatImageView
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/music_bg_3" />
+        android:layout_height="wrap_content"
+        android:background="@color/teal_200"
+        app:navigationIcon="@drawable/ps_ic_back"
+        app:title="用户列表"
+        app:titleTextColor="@color/white" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/type_item_list" />
-
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

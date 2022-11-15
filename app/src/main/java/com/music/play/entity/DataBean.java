@@ -35,6 +35,14 @@ public class DataBean {
         list.add(new DataBean(R.mipmap.image11, "生活的态度", 3));
         return list;
     }
+    public static List<DataBean> getTestData3() {
+        List<DataBean> list = new ArrayList<>();
+        list.add(new DataBean(R.mipmap.music_bg_2, "迪丽热巴.迪力木拉提", 1));
+        list.add(new DataBean(R.mipmap.music_bg_3, "迪丽热巴.迪力木拉提", 1));
+        list.add(new DataBean(R.mipmap.music_bg_1, "听风.赏雨", 3));
+        list.add(new DataBean(R.mipmap.music_bg_4, "迪丽热巴.迪力木拉提", 1));
+        return list;
+    }
 
 
 

@@ -18,5 +18,6 @@ public class HomeListAdapter extends BaseQuickAdapter<MusicInfo, BaseViewHolder>
     @Override
     protected void convert(@NonNull BaseViewHolder baseViewHolder, MusicInfo musicInfo) {
         baseViewHolder.setText(R.id.music_title, musicInfo.getMusic_title());
+        baseViewHolder.setText(R.id.music_type, musicInfo.getMusic_type());
     }
 }

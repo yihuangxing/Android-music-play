@@ -51,4 +51,5 @@ dependencies {
     implementation 'com.github.Othershe:CornerLabelView:1.0.0'
     implementation 'io.github.youth5201314:banner:2.2.2'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation 'com.geyifeng.immersionbar:immersionbar:3.2.2'
 }

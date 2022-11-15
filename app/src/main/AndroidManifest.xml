@@ -4,20 +4,31 @@
     package="com.music.play">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
+        android:name=".MusicApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/app_logo"
         android:label="@string/app_name"
+        android:resizeableActivity="true"
         android:networkSecurityConfig="@xml/network_security_config"
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Androidmusicplay"
+        android:theme="@style/Theme.AndroidMusicPlay"
         tools:targetApi="31">
+        <activity
+            android:name=".activity.MusicListManagerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.UserListManagerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ClassifyManagerActivity"
+            android:exported="false" />
         <activity
             android:name=".activity.PlayMusicActivity"
             android:exported="false" />
@@ -53,14 +64,20 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".service.MusicService"
+        <!--适配华为（huawei）刘海屏-->
+        <meta-data
+            android:name="android.notch_support"
+            android:value="true"/>
+        <!--适配小米（xiaomi）刘海屏-->
+        <meta-data
+            android:name="notch.config"
+            android:value="portrait|landscape" />
+
+        <service
+            android:name=".service.PlayService"
             android:enabled="true"
             android:exported="false"
-            android:stopWithTask="false"
-            >
-
-        </service>
-
+            android:stopWithTask="false" />
     </application>
 
 </manifest>

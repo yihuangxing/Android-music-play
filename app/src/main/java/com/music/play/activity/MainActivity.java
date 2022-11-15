@@ -7,18 +7,20 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.music.play.base.BaseActivity;
-import com.music.play.databinding.ActivityAdminMainBinding;
+import com.music.play.databinding.ActivityMainBinding;
 import com.music.play.fragment.HomeFragment;
 import com.music.play.fragment.TypeFragment;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends BaseActivity<ActivityAdminMainBinding> {
+public class MainActivity extends BaseActivity<ActivityMainBinding> {
     private String[] titles = {"推荐", "分类"};
     private List<Fragment> fragmentList = new ArrayList<>();
+
     @Override
-    protected ActivityAdminMainBinding getViewBinding() {
-        return ActivityAdminMainBinding.inflate(getLayoutInflater());
+    protected ActivityMainBinding getViewBinding() {
+        return ActivityMainBinding.inflate(getLayoutInflater());
     }
 
     @Override
@@ -28,7 +30,6 @@ public class MainActivity extends BaseActivity<ActivityAdminMainBinding> {
 
     @Override
     protected void initData() {
-
         //造数据
         fragmentList.add(new HomeFragment());
         fragmentList.add(new TypeFragment());

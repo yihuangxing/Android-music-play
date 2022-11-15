@@ -1,28 +1,28 @@
 package com.music.play.activity;
 
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.content.ServiceConnection;
-import android.os.IBinder;
+import android.annotation.SuppressLint;
+import android.os.Build;
+import android.text.format.DateUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.SeekBar;
 
+import com.gyf.immersionbar.ImmersionBar;
 import com.music.play.base.BaseActivity;
 import com.music.play.databinding.ActivityPlayMusicBinding;
 import com.music.play.entity.MusicInfo;
-import com.music.play.service.MusicService;
+import com.music.play.service.AudioPlayer;
+import com.music.play.service.OnPlayerEventListener;
+
+import java.util.Locale;
 
 /**
  * 音乐播放界面
  */
-public class PlayMusicActivity extends BaseActivity<ActivityPlayMusicBinding> {
+public class PlayMusicActivity extends BaseActivity<ActivityPlayMusicBinding> implements OnPlayerEventListener {
     private static final String TAG = "============";
     private MusicInfo musicInfo;
-
-    private MyComm mMyComm;
-    private Intent mServiceIntent;
-    private MusicService mMusicService;
+    private int mLastProgress;
 
     @Override
     protected ActivityPlayMusicBinding getViewBinding() {
@@ -32,10 +32,13 @@ public class PlayMusicActivity extends BaseActivity<ActivityPlayMusicBinding> {
     @Override
     protected void setListener() {
 
-        mBinding.seekbarMusic.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        mBinding.sbProgress.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
-
+                if (Math.abs(progress - mLastProgress) >= DateUtils.SECOND_IN_MILLIS) {
+                    mBinding.tvCurrentTime.setText(formatTime("mm:ss", progress));
+                    mLastProgress = progress;
+                }
             }
 
             @Override
@@ -45,10 +48,33 @@ public class PlayMusicActivity extends BaseActivity<ActivityPlayMusicBinding> {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                int progress = seekBar.getProgress();
-                if (null!=mMusicService){
-                    mMusicService.seekTo(progress);
+                if (AudioPlayer.get().isPlaying() || AudioPlayer.get().isPausing()) {
+                    int progress = seekBar.getProgress();
+                    AudioPlayer.get().seekTo(progress);
+                } else {
+                    seekBar.setProgress(0);
                 }
+            }
+        });
+
+        mBinding.ivMusicPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AudioPlayer.get().playPause();
+            }
+        });
+
+        mBinding.ivMusicPrevious.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AudioPlayer.get().prev();
+            }
+        });
+
+        mBinding.ivMusicNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AudioPlayer.get().next();
             }
         });
 
@@ -56,64 +82,81 @@ public class PlayMusicActivity extends BaseActivity<ActivityPlayMusicBinding> {
 
     @Override
     protected void initData() {
+        initSystemBar();
         musicInfo = (MusicInfo) getIntent().getSerializableExtra("musicInfo");
+        //监听
+        AudioPlayer.get().addOnPlayEventListener(this);
         if (null != musicInfo) {
-            mBinding.toolbar.setTitle(musicInfo.getMusic_title());
-            mBinding.tvMusicTitle.setText(musicInfo.getMusic_title());
-            mBinding.tvMusicSongType.setText(musicInfo.getMusic_type());
-        }
-
-        //初始化音乐播放器
-        mServiceIntent = new Intent(this, MusicService.class);
-        mMyComm = new MyComm();
-
-
-
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        startService(mServiceIntent);
-        bindService(mServiceIntent,mMyComm, Context.BIND_AUTO_CREATE);
-
-
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        unbindService(mMyComm);
-        stopService(mServiceIntent);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-    private class MyComm implements ServiceConnection {
-
-        @Override
-        public void onServiceConnected(ComponentName componentName, IBinder service) {
-            MusicService.MyMusicBinder binder = (MusicService.MyMusicBinder) service;
-            Log.i(TAG, "onServiceConnected: ");
-            mMusicService = binder.getMusicService();
-            //播放音乐
-            if (null!=mMusicService && null!=musicInfo){
-                mMusicService.onPlay(musicInfo.getMusic_url());
-            }else Log.i(TAG, "onStart:   mMusicService  is  null");
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName componentName) {
-            if (null != mMusicService) {
-                mMusicService = null;
-
-            }
+            AudioPlayer.get().addAndPlay(musicInfo);
         }
     }
 
+    /**
+     * 沉浸式状态栏
+     */
+    private void initSystemBar() {
+        ImmersionBar.with(this).init();
+    }
+
+    public String formatTime(String pattern, long milli) {
+        int m = (int) (milli / DateUtils.MINUTE_IN_MILLIS);
+        int s = (int) ((milli / DateUtils.SECOND_IN_MILLIS) % 60);
+        String mm = String.format(Locale.getDefault(), "%02d", m);
+        String ss = String.format(Locale.getDefault(), "%02d", s);
+        return pattern.replace("mm", mm).replace("ss", ss);
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void onChangeImpl(MusicInfo music) {
+        if (music == null) {
+            return;
+        }
+        mBinding.sbProgress.setProgress((int) AudioPlayer.get().getAudioPosition());
+        mBinding.sbProgress.setSecondaryProgress(0);
+        mLastProgress = 0;
+        mBinding.tvCurrentTime.setText("00:00");
+        if (AudioPlayer.get().isPlaying() || AudioPlayer.get().isPreparing()) {
+            mBinding.ivMusicPlay.setSelected(true);
+        } else {
+            mBinding.ivMusicPlay.setSelected(false);
+        }
+        mBinding.toolbar.setTitle(musicInfo.getMusic_title());
+        mBinding.tvMusicTitle.setText(musicInfo.getMusic_title());
+        mBinding.tvMusicSongType.setText(musicInfo.getMusic_type());
+    }
+
+    @Override
+    public void onChange(MusicInfo music) {
+        Log.d(TAG, "onChange: ");
+        onChangeImpl(music);
+    }
+
+    @Override
+    public void onPlayerStart(long duration) {
+        Log.d(TAG, "onPlayerStart: " + duration);
+        //一定要设置最大值
+        mBinding.sbProgress.setMax((int) duration);
+        mBinding.tvTotalTime.setText(formatTime("mm:ss", duration));
+        mBinding.ivMusicPlay.setSelected(true);
+    }
+
+    @Override
+    public void onPlayerPause() {
+        Log.d(TAG, "onPlayerPause: ");
+        mBinding.ivMusicPlay.setSelected(false);
+    }
+
+    @Override
+    public void onPublish(int progress) {
+        Log.d(TAG, "onPublish: " + progress);
+        mBinding.sbProgress.setProgress(progress);
+    }
+
+    @Override
+    public void onBufferingUpdate(int percent) {
+        Log.d(TAG, "onBufferingUpdate: ");
+        mBinding.sbProgress.setSecondaryProgress(mBinding.sbProgress.getMax() * 100 / percent);
+    }
 
 
 }

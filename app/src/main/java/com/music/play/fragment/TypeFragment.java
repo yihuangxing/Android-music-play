@@ -14,12 +14,16 @@ import com.music.play.adapter.TypeListAdapter;
 import com.music.play.api.ApiConstants;
 import com.music.play.base.BaseFragment;
 import com.music.play.databinding.FragmentTypeBinding;
+import com.music.play.entity.DataBean;
 import com.music.play.entity.MusicInfo;
 import com.music.play.entity.MusicListInfo;
 import com.music.play.entity.MusicTypeInfo;
 import com.music.play.entity.MusicTypeListInfo;
 import com.music.play.http.HttpStringCallback;
 import com.music.play.utils.GsonUtils;
+import com.youth.banner.adapter.BannerImageAdapter;
+import com.youth.banner.holder.BannerImageHolder;
+import com.youth.banner.indicator.CircleIndicator;
 
 /**
  * 分类
@@ -52,6 +56,8 @@ public class TypeFragment extends BaseFragment<FragmentTypeBinding> {
 
     @Override
     protected void initData() {
+
+
         queryMusicTypeListData();
     }
 

@@ -3,6 +3,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidProject/Android-music-play/app/src/main/res/drawable/play_btn_pause_selector.xml" value="0.2035" />
+        <entry key="..\:/AndroidProject/Android-music-play/app/src/main/res/drawable/play_btn_play_pause_selector.xml" value="0.2035" />
+        <entry key="..\:/AndroidProject/Android-music-play/app/src/main/res/drawable/play_btn_play_selector.xml" value="0.2035" />
+        <entry key="..\:/AndroidProject/Android-music-play/app/src/main/res/layout/activity_admin_main.xml" value="0.21510416666666668" />
+        <entry key="..\:/AndroidProject/Android-music-play/app/src/main/res/layout/activity_classify_manager.xml" value="0.2988679352838745" />
+        <entry key="..\:/AndroidProject/Android-music-play/app/src/main/res/layout/activity_main.xml" value="0.21510416666666668" />
+        <entry key="..\:/AndroidProject/Android-music-play/app/src/main/res/layout/activity_music_list_manager.xml" value="0.19635416666666666" />
+        <entry key="..\:/AndroidProject/Android-music-play/app/src/main/res/layout/activity_play_music.xml" value="0.2264151024877837" />
+        <entry key="..\:/AndroidProject/Android-music-play/app/src/main/res/layout/activity_user_list_manager.xml" value="0.20989583333333334" />
+        <entry key="..\:/AndroidProject/Android-music-play/app/src/main/res/layout/classify_list_item.xml" value="0.22239583333333332" />
+        <entry key="..\:/AndroidProject/Android-music-play/app/src/main/res/layout/fragment_home.xml" value="0.20833333333333334" />
+        <entry key="..\:/AndroidProject/Android-music-play/app/src/main/res/layout/fragment_type.xml" value="0.20833333333333334" />
+        <entry key="..\:/AndroidProject/Android-music-play/app/src/main/res/layout/home_item_list.xml" value="0.2988679352838745" />
+        <entry key="..\:/AndroidProject/Android-music-play/app/src/main/res/layout/type_item_list.xml" value="0.2264151024877837" />
+        <entry key="..\:/AndroidProject/Android-music-play/app/src/main/res/layout/user_list_item.xml" value="0.2988679352838745" />
         <entry key="app/src/main/res/drawable/ripple.xml" value="0.1705" />
         <entry key="app/src/main/res/drawable/seekbar_progress.xml" value="0.1705" />
         <entry key="app/src/main/res/layout/activity_admin_login.xml" value="0.14583333333333334" />

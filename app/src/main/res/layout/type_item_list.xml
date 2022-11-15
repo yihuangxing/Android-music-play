@@ -17,15 +17,15 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@mipmap/music_type_rmgq"
-            app:civ_border_color="@color/teal_200"
-            app:civ_border_width="1dp" />
+            android:src="@mipmap/music_bg_1"
+            app:civ_border_color="#f5f5f5"
+            app:civ_border_width="2dp" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/title"
             android:layout_marginTop="4dp"
             android:layout_width="wrap_content"
-            android:textColor="@color/teal_200"
+            android:textColor="@color/white"
             android:text="热门歌曲"
             android:layout_height="wrap_content"/>
 

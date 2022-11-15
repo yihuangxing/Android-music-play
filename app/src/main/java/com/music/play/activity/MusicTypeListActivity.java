@@ -16,6 +16,7 @@ import com.music.play.databinding.ActivityMusicTypeListBinding;
 import com.music.play.entity.MusicInfo;
 import com.music.play.entity.MusicListInfo;
 import com.music.play.http.HttpStringCallback;
+import com.music.play.service.AudioPlayer;
 import com.music.play.utils.GsonUtils;
 
 /**
@@ -41,6 +42,8 @@ public class MusicTypeListActivity extends BaseActivity<ActivityMusicTypeListBin
         mListAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
+                //设置数据
+                AudioPlayer.get().setMusicList(mListAdapter.getData());
                 MusicInfo musicInfo = mListAdapter.getData().get(position);
                 Intent intent = new Intent(mContext, PlayMusicActivity.class);
                 intent.putExtra("musicInfo", musicInfo);
