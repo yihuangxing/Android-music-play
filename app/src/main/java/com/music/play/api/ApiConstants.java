@@ -1,0 +1,36 @@
+package com.music.play.api;
+
+import com.music.play.entity.UserInfo;
+
+/**
+ * desc   :
+ */
+public class ApiConstants {
+    public final static String BASE_URL = "http://192.168.2.60:8080";
+
+    public static UserInfo sUserInfo;
+
+    public static UserInfo getUserInfo() {
+        return sUserInfo;
+    }
+
+    public static void setUserInfo(UserInfo userInfo) {
+        sUserInfo = userInfo;
+    }
+
+    //注册
+    public final static String REGISTER_URL = BASE_URL + "/user/register";
+
+    //登录
+    public final static String LOGIN_URL = BASE_URL + "/user/login";
+
+    //修改密码
+    public final static String EDIT_URL = BASE_URL + "/user/edit";
+
+
+    //根据音乐类型获取音乐
+    public final static String QUERY_MUSIC_URL = BASE_URL + "/user/queryMusicList";
+
+    //获取音乐分类
+    public final static String QUERY_MUSIC_TYPE_URL = BASE_URL + "/user/queryMusicTypeList";
+}

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/drawable/ripple.xml" value="0.1705" />
+        <entry key="app/src/main/res/drawable/seekbar_progress.xml" value="0.1705" />
+        <entry key="app/src/main/res/layout/activity_admin_login.xml" value="0.14583333333333334" />
+        <entry key="app/src/main/res/layout/activity_admin_main.xml" value="0.19791666666666666" />
+        <entry key="app/src/main/res/layout/activity_admin_register.xml" value="0.15989583333333332" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.14583333333333334" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.15989583333333332" />
+        <entry key="app/src/main/res/layout/activity_music_type_list.xml" value="0.171875" />
+        <entry key="app/src/main/res/layout/activity_play_music.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/activity_register.xml" value="0.14583333333333334" />
+        <entry key="app/src/main/res/layout/activity_splash.xml" value="0.19947916666666668" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_type.xml" value="0.15520833333333334" />
+        <entry key="app/src/main/res/layout/home_item_list.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/home_list_item.xml" value="0.41604010025062654" />
+        <entry key="app/src/main/res/layout/type_item_list.xml" value="0.335" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
