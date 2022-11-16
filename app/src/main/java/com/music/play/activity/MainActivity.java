@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
@@ -33,11 +34,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         mBinding.avatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                   startActivity(new Intent(MainActivity.this,MineActivity.class));
+                startActivityForResult(new Intent(MainActivity.this, MineActivity.class), 20002);
             }
         });
 
     }
+
 
     @Override
     protected void initData() {
@@ -51,6 +53,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
         //如果处理成懒加载的话，其实很简单，只要是这个方法setOffscreenPageLimit不去设置，就可以了。
 //        mBinding.viewPager.setOffscreenPageLimit(fragmentList.size());
+        mBinding.viewPager.setUserInputEnabled(false);
         mBinding.viewPager.setAdapter(new FragmentStateAdapter(this) {
             @NonNull
             @Override
@@ -89,5 +92,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         //这句话很重要
         tabLayoutMediator.attach();
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == 20002) {
+            finish();
+        }
     }
 }

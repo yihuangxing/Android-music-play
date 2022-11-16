@@ -17,7 +17,7 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@mipmap/music_bg_1"
+            android:src="@mipmap/music_bg_4"
             app:civ_border_color="#f5f5f5"
             app:civ_border_width="2dp" />
 
