@@ -2,11 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg"
     android:fitsSystemWindows="true"
-    android:id="@+id/ll_content"
     tools:context=".activity.PlayMusicActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -62,10 +62,22 @@
 
         </LinearLayout>
 
+
+        <ImageView
+            android:id="@+id/download"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/ripple"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="7dp"
+            android:src="@mipmap/iv_download" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:layout_marginBottom="20dp"
             android:gravity="center"
             android:orientation="horizontal">
@@ -101,6 +113,7 @@
                 android:textSize="12sp" />
 
         </LinearLayout>
+
 
         <RelativeLayout
             android:layout_width="match_parent"

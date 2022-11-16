@@ -2,6 +2,7 @@ package com.music.play.activity;
 
 import android.annotation.SuppressLint;
 import android.os.Build;
+import android.os.Environment;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
@@ -9,8 +10,18 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.widget.SeekBar;
+import android.widget.Toast;
 
+import com.arialyy.annotations.Download;
+import com.arialyy.aria.core.Aria;
+import com.arialyy.aria.core.download.DownloadEntity;
+import com.arialyy.aria.core.task.DownloadTask;
+import com.arialyy.aria.util.ALog;
+import com.arialyy.aria.util.CommonUtil;
 import com.gyf.immersionbar.ImmersionBar;
+import com.hjq.permissions.OnPermissionCallback;
+import com.hjq.permissions.Permission;
+import com.hjq.permissions.XXPermissions;
 import com.lzy.okgo.OkGo;
 import com.music.play.R;
 import com.music.play.api.ApiConstants;
@@ -20,7 +31,10 @@ import com.music.play.entity.MusicInfo;
 import com.music.play.http.HttpStringCallback;
 import com.music.play.service.AudioPlayer;
 import com.music.play.service.OnPlayerEventListener;
+import com.music.play.utils.GsonUtils;
 
+import java.io.File;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -38,6 +52,8 @@ public class PlayMusicActivity extends BaseActivity<ActivityPlayMusicBinding> im
 
     @Override
     protected void setListener() {
+
+        Aria.download(this).register();
 
         mBinding.sbProgress.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -85,6 +101,20 @@ public class PlayMusicActivity extends BaseActivity<ActivityPlayMusicBinding> im
             }
         });
 
+
+        //下载
+        mBinding.download.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (XXPermissions.isGranted(mContext, Permission.Group.STORAGE)) {
+                    download();
+                } else {
+                    checkPermission();
+                }
+
+            }
+        });
+
     }
 
     @Override
@@ -95,9 +125,18 @@ public class PlayMusicActivity extends BaseActivity<ActivityPlayMusicBinding> im
         AudioPlayer.get().addOnPlayEventListener(this);
         if (null != musicInfo) {
             AudioPlayer.get().addAndPlay(musicInfo);
-
             //添加到浏览记录
             addRecord(musicInfo);
+
+            //获取单个任务实体
+            DownloadEntity entity = Aria.download(this).getFirstDownloadEntity(musicInfo.getMusic_url());
+            if (null != entity) {
+                mBinding.download.setClickable(false);
+                mBinding.download.setImageResource(R.mipmap.ic_download_complete);
+            } else {
+                mBinding.download.setClickable(true);
+                mBinding.download.setImageResource(R.mipmap.iv_download);
+            }
         }
     }
 
@@ -144,7 +183,6 @@ public class PlayMusicActivity extends BaseActivity<ActivityPlayMusicBinding> im
 
     @Override
     public void onPlayerStart(long duration) {
-        Log.d(TAG, "onPlayerStart: " + duration);
         //一定要设置最大值
         mBinding.sbProgress.setMax((int) duration);
         mBinding.tvTotalTime.setText(formatTime("mm:ss", duration));
@@ -154,20 +192,17 @@ public class PlayMusicActivity extends BaseActivity<ActivityPlayMusicBinding> im
 
     @Override
     public void onPlayerPause() {
-        Log.d(TAG, "onPlayerPause: ");
         mBinding.ivMusicPlay.setSelected(false);
         stopAnim();
     }
 
     @Override
     public void onPublish(int progress) {
-        Log.d(TAG, "onPublish: " + progress);
         mBinding.sbProgress.setProgress(progress);
     }
 
     @Override
     public void onBufferingUpdate(int percent) {
-        Log.d(TAG, "onBufferingUpdate: ");
         mBinding.sbProgress.setSecondaryProgress(mBinding.sbProgress.getMax() * 100 / percent);
     }
 
@@ -206,6 +241,103 @@ public class PlayMusicActivity extends BaseActivity<ActivityPlayMusicBinding> im
                 });
 
 
+    }
+
+    private void checkPermission() {
+        XXPermissions.with(this)
+                // 申请单个权限
+                // 申请多个权限
+                .permission(Permission.Group.STORAGE)
+                // 设置权限请求拦截器（局部设置）
+                //.interceptor(new PermissionInterceptor())
+                // 设置不触发错误检测机制（局部设置）
+                //.unchecked()
+                .request(new OnPermissionCallback() {
+
+                    @Override
+                    public void onGranted(List<String> permissions, boolean all) {
+                        if (!all) {
+                            showToast("获取部分权限成功，但部分权限未正常授予");
+                            return;
+                        }
+
+                        //这里做操作
+
+
+                    }
+
+                    @Override
+                    public void onDenied(List<String> permissions, boolean never) {
+                        if (never) {
+                            showToast("被永久拒绝授权，请手动授予录音和日历权限");
+                            // 如果是被永久拒绝就跳转到应用权限系统设置页面
+                            XXPermissions.startPermissionActivity(mContext, permissions);
+                        } else {
+                            showToast("获取录音和日历权限失败");
+                        }
+                    }
+                });
+    }
+
+    @Download.onWait
+    public void onWait(DownloadTask task) {
+        Log.d(TAG, "onWait: ");
+    }
+
+    @Download.onPre
+    public void onPre(DownloadTask task) {
+        Log.d(TAG, "onPre: ");
+    }
+
+    @Download.onTaskStart
+    public void onTaskStart(DownloadTask task) {
+        Log.d(TAG, "onTaskStart: ");
+        showToast("开始下载~~~~~");
+    }
+
+    @Download.onTaskRunning
+    public void onTaskRunning(DownloadTask task) {
+        Log.d(TAG, "onTaskRunning: ");
+    }
+
+    @Download.onTaskResume
+    public void onTaskResume(DownloadTask task) {
+        Log.d(TAG, "onTaskResume: ");
+    }
+
+    @Download.onTaskStop
+    public void onTaskStop(DownloadTask task) {
+        Log.d(TAG, "onTaskStop: ");
+    }
+
+    @Download.onTaskCancel
+    public void onTaskCancel(DownloadTask task) {
+        Log.d(TAG, "onTaskCancel: ");
+    }
+
+    @Download.onTaskFail
+    public void onTaskFail(DownloadTask task, Exception e) {
+        Log.d(TAG, "onTaskFail: ");
+    }
+
+    @Download.onTaskComplete
+    public void onTaskComplete(DownloadTask task) {
+        Log.d(TAG, "onTaskComplete: ");
+        mBinding.download.setClickable(false);
+        mBinding.download.setImageResource(R.mipmap.ic_download_complete);
+        showToast("下载完成~~~~~");
+
+    }
+
+    private void download() {
+        if (null != musicInfo) {
+            Aria.download(PlayMusicActivity.this)
+                    .load(musicInfo.getMusic_url()) // 下载地址
+                    .setFilePath(getExternalCacheDir().getPath() + musicInfo.getMusic_title() + ".mp3") // 设置文件保存路径
+                    .setExtendField(GsonUtils.toJson(musicInfo))
+                    .create();
+
+        }
     }
 
 }

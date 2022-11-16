@@ -6,7 +6,7 @@ import com.music.play.entity.UserInfo;
  * desc   :
  */
 public class ApiConstants {
-    public final static String BASE_URL = "http://192.168.2.60:8080";
+    public final static String BASE_URL = "http://192.168.14.13:8080";
 
     public static UserInfo sUserInfo;
 

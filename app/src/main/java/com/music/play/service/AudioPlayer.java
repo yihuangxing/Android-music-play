@@ -185,7 +185,6 @@ public class AudioPlayer {
         if (!isPreparing() && !isPausing()) {
             return;
         }
-        Log.d(TAG, "startPlayer: " + mediaPlayer.getDuration());
         mediaPlayer.start();
         state = STATE_PLAYING;
         handler.post(mPublishRunnable);

@@ -3,6 +3,7 @@ package com.music.play;
 import android.app.Application;
 import android.content.Intent;
 
+import com.arialyy.aria.core.Aria;
 import com.music.play.service.PlayService;
 import com.music.play.utils.Preferences;
 
@@ -16,5 +17,7 @@ public class MusicApplication extends Application {
         Preferences.init(this);
         Intent intent = new Intent(this, PlayService.class);
         startService(intent);
+
+        Aria.init(this);
     }
 }

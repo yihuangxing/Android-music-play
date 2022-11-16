@@ -7,13 +7,39 @@
     android:orientation="vertical">
 
 
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/teal_200"
+        android:gravity="center_vertical"
+        android:padding="10dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/avatar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@mipmap/ic_3"
+            app:civ_border_color="#f5f5f5"
+            app:civ_border_width="1dp" />
+
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:text="zsan"
+            android:textColor="@color/white"
+            tools:ignore="RtlSymmetry" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/teal_200"
-        app:tabIndicatorFullWidth="true"
         app:tabIndicatorColor="@color/white"
+        app:tabIndicatorFullWidth="true"
         app:tabTextColor="@color/white" />
 
     <View
