@@ -34,7 +34,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="30dp"
         android:backgroundTint="@color/teal_200"
-        app:cardCornerRadius="50dp"
+        app:cardCornerRadius="30dp"
         app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true">
 

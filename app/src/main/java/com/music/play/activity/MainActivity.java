@@ -19,6 +19,9 @@ import com.music.play.fragment.TypeFragment;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 用户主页面
+ */
 public class MainActivity extends BaseActivity<ActivityMainBinding> {
     private String[] titles = {"音乐推荐", "音乐分类"};
     private List<Fragment> fragmentList = new ArrayList<>();

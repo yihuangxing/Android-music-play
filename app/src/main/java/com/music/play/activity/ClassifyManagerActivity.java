@@ -16,24 +16,21 @@ import com.lzy.okgo.OkGo;
 import com.music.play.adapter.ClassifyManagerListAdapter;
 import com.music.play.api.ApiConstants;
 import com.music.play.base.BaseActivity;
-import com.music.play.databinding.ActivityClassifyManagerBinding;
 import com.music.play.entity.MusicTypeInfo;
 import com.music.play.entity.MusicTypeListInfo;
 import com.music.play.http.HttpStringCallback;
 import com.music.play.utils.GsonUtils;
 
-import java.util.ArrayList;
-
 /**
  * 分类管理
  */
-public class ClassifyManagerActivity extends BaseActivity<ActivityClassifyManagerBinding> {
+public class ClassifyManagerActivity extends BaseActivity<com.music.play.databinding.ActivityClassifyManagerBinding> {
     private ClassifyManagerListAdapter mListAdapter;
     private int currentIndex = 0;
 
     @Override
-    protected ActivityClassifyManagerBinding getViewBinding() {
-        return ActivityClassifyManagerBinding.inflate(getLayoutInflater());
+    protected com.music.play.databinding.ActivityClassifyManagerBinding getViewBinding() {
+        return com.music.play.databinding.ActivityClassifyManagerBinding.inflate(getLayoutInflater());
     }
 
     @Override

@@ -8,9 +8,11 @@
     tools:context=".fragment.HomeFragment">
 
     <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/teal_200"
+        app:navigationIcon="@drawable/ps_ic_back"
         app:title="个人中心"
         app:titleTextColor="@color/white" />
 
@@ -25,7 +27,7 @@
             android:layout_width="68dp"
             android:layout_height="68dp"
             android:layout_gravity="center_vertical"
-            app:cardCornerRadius="50dp"
+            app:cardCornerRadius="34dp"
             app:cardElevation="0dp">
 
             <ImageView

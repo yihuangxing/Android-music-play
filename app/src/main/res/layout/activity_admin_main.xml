@@ -64,9 +64,8 @@
                 android:id="@+id/userList"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-
                 android:backgroundTint="#FF5722"
-                app:cardCornerRadius="50dp"
+                app:cardCornerRadius="40dp"
                 app:cardPreventCornerOverlap="true">
 
                 <TextView
@@ -84,7 +83,7 @@
                 android:layout_height="80dp"
                 android:layout_marginStart="30dp"
                 android:backgroundTint="#03A9F4"
-                app:cardCornerRadius="50dp"
+                app:cardCornerRadius="40dp"
                 app:cardPreventCornerOverlap="true">
 
                 <TextView
